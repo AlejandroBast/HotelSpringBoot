@@ -13,4 +13,16 @@ class ClienteTest {
         clienteTest.registrarPenalizacion();
         assertEquals(2, clienteTest.getPenalizaciones());
     }
+
+    @Test
+    @DisplayName("Verifical  que al pasar el numero maximo de penalizaciones se desactiva al cliente")
+    void sobrepasarLimitePenalizaciones() {
+        Cliente clienteTest2 = new Cliente("juan chotazo", "juan@chotazo.com");
+        clienteTest2.registrarPenalizacion();
+        clienteTest2.registrarPenalizacion();
+        clienteTest2.registrarPenalizacion();
+        clienteTest2.registrarPenalizacion();
+
+        assertEquals(false, clienteTest2.puedeRealizarReservas());
+    }
 }
