@@ -47,4 +47,15 @@ class ReservaTest {
 
     }
 
+    @Test
+    @DisplayName("una reserva nueva nace en estado pendiente")
+    void crearReservaNueva() {
+        Cliente tCliente = new Cliente("Carlos Gómez", "carlos@correo.com");
+        Habitacion tHabitacion = new HabitacionEstandar("101", 2, 100.0, 1);
+        RangoFechas tPeriodo = new RangoFechas(LocalDateTime.now().plusDays(1), LocalDateTime.now().plusDays(4));
+        Reserva tReserva = new Reserva(tCliente, tHabitacion, tPeriodo); 
+
+        assertEquals(EstadoReserva.PENDIENTE, tReserva.getEstado());
+    }
+
 }
