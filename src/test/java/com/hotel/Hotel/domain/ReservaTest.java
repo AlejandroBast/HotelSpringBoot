@@ -1,11 +1,10 @@
 package com.hotel.Hotel.domain;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 class ReservaTest {
 
@@ -30,4 +29,22 @@ class ReservaTest {
         assertEquals(EstadoReserva.CONFIRMADA, reserva.getEstado());
         assertEquals(EstadoHabitacion.OCUPADA, habitacion.getEstado());
     }
+
+    @Test
+    @DisplayName("Verifica que al cancelar una reserva esta pasa a ser CANCELADA y la habitacion se habilita")
+    void cancelarReserva() {
+
+        Cliente tCliente = new Cliente("Carlos Gómez", "carlos@correo.com");
+        Habitacion tHabitacion = new HabitacionEstandar("101", 2, 100.0, 1);
+        RangoFechas tPeriodo = new RangoFechas(LocalDateTime.now().plusDays(1), LocalDateTime.now().plusDays(4));
+        Reserva tReserva = new Reserva(tCliente, tHabitacion, tPeriodo);
+
+        tReserva.confirmar();
+        tReserva.cancelar();
+
+        assertEquals(EstadoReserva.CANCELADA, tReserva.getEstado());
+        assertEquals(EstadoHabitacion.DISPONIBLE, tHabitacion.getEstado());
+
+    }
+
 }
