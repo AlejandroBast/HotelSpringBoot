@@ -1,8 +1,9 @@
 package com.hotel.Hotel.domain;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -58,4 +59,12 @@ class ReservaTest {
         assertEquals(EstadoReserva.PENDIENTE, tReserva.getEstado());
     }
 
+    @Test
+    @DisplayName("Lanza excepción si el cliente es null")
+    void rechazaClienteNull() {
+        
+        Habitacion habitacion = new HabitacionEstandar("101", 2, 100.0, 1);
+        RangoFechas periodo = new RangoFechas(LocalDateTime.now().plusDays(1), LocalDateTime.now().plusDays(4));
+        assertThrows(IllegalArgumentException.class, () -> new Reserva(null, habitacion, periodo));
+    }
 }
